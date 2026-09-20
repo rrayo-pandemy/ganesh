@@ -1,0 +1,17 @@
+# Normalize line endings for text files
+* text=auto
+
+# Enforce UTF-8 in working tree for common text sources
+*.html text working-tree-encoding=UTF-8
+*.css text working-tree-encoding=UTF-8
+*.js text working-tree-encoding=UTF-8
+*.json text working-tree-encoding=UTF-8
+*.md text working-tree-encoding=UTF-8
+*.txt text working-tree-encoding=UTF-8
+*.py text working-tree-encoding=UTF-8
+*.sh text working-tree-encoding=UTF-8
+*.yml text working-tree-encoding=UTF-8
+*.yaml text working-tree-encoding=UTF-8
+*.xml text working-tree-encoding=UTF-8
+*.svg text working-tree-encoding=UTF-8
+
