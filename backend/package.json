@@ -1,0 +1,50 @@
+{
+  "name": "ganesh-backend",
+  "version": "2.0.0",
+  "description": "Backend API modular y seguro para tienda virtual Ganesh",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon --watch src --watch server.js server.js",
+    "test": "jest --runInBand",
+    "prisma:generate": "prisma generate --schema ./prisma/schema.prisma",
+    "prisma:migrate:dev": "prisma migrate dev --schema ./prisma/schema.prisma --name init",
+    "db:migrate-json": "node ./scripts/migrate_json_to_db.js",
+    "minio:setup": "node scripts/minio_setup.js"
+  },
+  "keywords": [
+    "ecommerce",
+    "api",
+    "express",
+    "security",
+    "Ganesh"
+  ],
+  "author": "Ganesh",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.0.0",
+    "@prisma/client": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "compression": "^1.7.4",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "express-validator": "^7.0.0",
+    "helmet": "^7.0.0",
+    "image-type": "^5.0.0",
+    "jsonwebtoken": "^9.0.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0",
+    "nodemon": "^3.1.14",
+    "prisma": "^5.0.0",
+    "supertest": "^7.0.0"
+  }
+}
