@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mi perfil - Ganesh">
+    <meta name="theme-color" content="#0b3c5d">
+    <script>
+        (function () {
+            try {
+                var savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (e) { }
+        })();
+    </script>
+    <title>Mi Perfil - Ganesh</title>
+    <link rel="stylesheet" href="css/profile.css?v=20260504">
+</head>
+
+<body>
+    <!-- Top Bar -->
+    <header class="profile-topbar">
+        <a href="index.html" class="profile-topbar__brand">
+            <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+                <circle cx="16" cy="16" r="14" fill="url(#pg)" opacity="0.9" />
+                <path d="M16 6 L22 14 L22 26 L10 26 L10 14 Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+                <defs>
+                    <linearGradient id="pg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#00d4ff" />
+                        <stop offset="100%" style="stop-color:#0099cc" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            Ganesh
+        </a>
+        <div class="profile-topbar__actions">
+            <button class="theme-toggle" aria-label="Cambiar tema" data-theme-glyph="☾" type="button">
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 0111.21 3c0 .34.02.67.05 1A7 7 0 1019 19.74c.33.03.66.05 1 .05z"
+                        fill="currentColor" />
+                </svg>
+            </button>
+            <a href="index.html" class="btn btn--back">← Volver a la tienda</a>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="profile-layout">
+        <!-- Sidebar -->
+        <aside class="profile-sidebar">
+            <div class="profile-sidebar__avatar">
+                <div class="avatar-wrapper" id="avatar-wrapper">
+                    <img class="avatar-img" id="avatar-img" src="" alt="Avatar">
+                    <button type="button" class="avatar-badge" id="avatar-badge" title="Editar foto">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                            <path d="M12 15.5c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z"/>
+                            <path d="M21 6h-3.17L16 4h-8L6.17 6H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-9 13c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/>
+                        </svg>
+                    </button>
+                    <div class="avatar-overlay">
+                        <button type="button" class="avatar-btn" id="btn-view-avatar" title="Ver foto">👁</button>
+                        <button type="button" class="avatar-btn" id="btn-change-avatar" title="Cambiar foto">📷</button>
+                        <button type="button" class="avatar-btn" id="btn-delete-avatar"
+                            title="Eliminar foto">🗑</button>
+                    </div>
+                    <input type="file" class="avatar-input" id="avatar-input"
+                        accept="image/jpeg,image/png,image/gif,image/webp">
+                </div>
+                <span class="sidebar-username" id="sidebar-username">Usuario</span>
+                <span class="sidebar-email" id="sidebar-email">email@ejemplo.com</span>
+            </div>
+
+            <ul class="profile-nav">
+                <li><button class="profile-nav__item active" data-section="profile">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                        Mi Perfil
+                    </button></li>
+                <li><button class="profile-nav__item" data-section="password">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                        </svg>
+                        Cambiar Contrasena
+                    </button></li>
+                <li class="nav-divider"></li>
+                <li><button class="profile-nav__item" data-section="favorites">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                        Favoritos
+                    </button></li>
+                <li><button class="profile-nav__item" data-section="recommendations">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                        </svg>
+                        Recomendaciones
+                    </button></li>
+                <li class="nav-divider"></li>
+                <li><button class="profile-nav__item" data-section="orders">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20z" />
+                        </svg>
+                        Historial de Compras
+                    </button></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="profile-main">
+
+            <!-- Section: Profile -->
+            <div class="profile-section active" id="section-profile">
+                <h1 class="section-title">Mi Perfil</h1>
+                <p class="section-subtitle">Actualiza tu informacion personal</p>
+
+                <form class="profile-card" id="profile-form">
+                    <div class="profile-card__title">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                        Datos personales
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="profile-name">Nombres</label>
+                            <input class="form-input" type="text" id="profile-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="profile-lastname">Apellidos</label>
+                            <input class="form-input" type="text" id="profile-lastname">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="profile-nickname">Nickname</label>
+                            <input class="form-input" type="text" id="profile-nickname" placeholder="Nickname">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="profile-email">Correo Electronico</label>
+                            <input class="form-input" type="email" id="profile-email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="profile-phone">Numero Celular</label>
+                            <input class="form-input" type="tel" id="profile-phone" placeholder="+51 987 654 321"
+                                inputmode="numeric" pattern="\+51 [0-9]{9}" maxlength="13">
+                        </div>
+                        <div class="form-group full-width">
+                            <label class="form-label" for="profile-address">Direccion</label>
+                            <input class="form-input" type="text" id="profile-address"
+                                placeholder="Tu direccion de envio">
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Section: Password -->
+            <div class="profile-section" id="section-password">
+                <h1 class="section-title">Cambiar Contrasena</h1>
+                <p class="section-subtitle">Puedes cambiar tu contraseña cada 15 días. Debe tener al menos 9 caracteres, una mayúscula, un número y un carácter especial.</p>
+
+                <form class="profile-card" id="password-form">
+                    <div class="profile-card__title">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                        </svg>
+                        Seguridad
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group full-width">
+                            <label class="form-label" for="current-password">Contrasena actual</label>
+                            <input class="form-input" type="password" id="current-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="new-password">Nueva contrasena</label>
+                            <input class="form-input" type="password" id="new-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="confirm-password">Confirmar nueva contrasena</label>
+                            <input class="form-input" type="password" id="confirm-password" required>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn--primary">Cambiar contrasena</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Section: Favorites -->
+            <div class="profile-section" id="section-favorites">
+                <h1 class="section-title">Mis Favoritos</h1>
+                <p class="section-subtitle">Productos que has marcado como favoritos</p>
+                <div class="products-grid" id="favorites-grid"></div>
+                <div class="empty-state" id="favorites-empty" style="display:none;">
+                    <div class="empty-state__icon">♡</div>
+                    <p class="empty-state__text">Aun no tienes favoritos. Explora la tienda y marca los productos que te
+                        gusten.</p>
+                </div>
+            </div>
+
+            <!-- Section: Recommendations -->
+            <div class="profile-section" id="section-recommendations">
+                <h1 class="section-title">Recomendaciones</h1>
+                <p class="section-subtitle">Productos seleccionados para ti basados en tus intereses</p>
+                <div class="products-grid" id="recommendations-grid"></div>
+                <div class="empty-state" id="recommendations-empty" style="display:none;">
+                    <div class="empty-state__icon">⭐</div>
+                    <p class="empty-state__text">Agrega favoritos para recibir recomendaciones personalizadas.</p>
+                </div>
+            </div>
+
+            <!-- Section: Orders -->
+            <div class="profile-section" id="section-orders">
+                <h1 class="section-title">Historial de Compras</h1>
+                <p class="section-subtitle">Todos tus pedidos anteriores</p>
+                <div class="orders-table-wrap" id="orders-table-wrap">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Productos</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                                <th>Fecha</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody"></tbody>
+                    </table>
+                </div>
+                <div class="empty-state" id="orders-empty" style="display:none;">
+                    <div class="empty-state__icon">📦</div>
+                    <p class="empty-state__text">Aun no has realizado ninguna compra.</p>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Photo Viewer Modal -->
+    <div id="photo-modal" class="photo-modal" aria-hidden="true">
+        <div class="photo-modal__overlay"></div>
+        <div class="photo-modal__content">
+            <button type="button" class="photo-modal__close" aria-label="Cerrar">&times;</button>
+            <img id="photo-modal-img" src="" alt="Foto de perfil completa">
+        </div>
+    </div>
+
+    <div id="toast" class="toast" aria-live="polite"></div>
+
+    <!-- Avatar Mobile Menu (Bottom Sheet) -->
+    <div id="avatar-menu" class="avatar-menu" aria-hidden="true">
+        <div class="avatar-menu__overlay"></div>
+        <div class="avatar-menu__sheet">
+            <div class="avatar-menu__handle"></div>
+            <h3 class="avatar-menu__title">Foto de Perfil</h3>
+            <ul class="avatar-menu__list">
+                <li>
+                    <button type="button" class="avatar-menu__item" id="menu-view-avatar">
+                        <span class="avatar-menu__icon">👁</span> Ver foto completa
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="avatar-menu__item" id="menu-change-avatar">
+                        <span class="avatar-menu__icon">📷</span> Subir nueva foto
+                    </button>
+                </li>
+                <li>
+                    <button type="button" class="avatar-menu__item avatar-menu__item--danger" id="menu-delete-avatar">
+                        <span class="avatar-menu__icon">🗑</span> Eliminar foto actual
+                    </button>
+                </li>
+            </ul>
+            <button type="button" class="avatar-menu__cancel">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de API dinámica para LAN/WAN
+        (function() {
+            function normalizeApiBase(value) {
+                if (!value) return '';
+                try {
+                    var parsed = new URL(value.trim());
+                    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return '';
+                    return parsed.origin;
+                } catch (e) {
+                    return '';
+                }
+            }
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var apiOverride = normalizeApiBase(urlParams.get('api'));
+            if (!apiOverride && /^\?https?:\/\//i.test(window.location.search)) {
+                apiOverride = normalizeApiBase(window.location.search.slice(1));
+            }
+            if (apiOverride) {
+                localStorage.setItem('wan_api_base', apiOverride);
+            }
+            var savedWanApi = normalizeApiBase(localStorage.getItem('wan_api_base'));
+            window.API_BASE = savedWanApi || window.location.origin;
+
+            if (!savedWanApi && window.location.port === '8000') {
+                window.API_BASE = window.location.protocol + '//' + window.location.hostname + ':5000';
+            }
+            
+            // Inyectar API_BASE en las variables globales si es necesario
+            if (window.location.port === '8000' && !savedWanApi) {
+                window.API_BASE = window.location.protocol + '//' + window.location.hostname + ':5000';
+            }
+        })();
+    </script>
+    <script src="js/api-config.js"></script>
+    <script src="js/theme-manager.js?v=20260504"></script>
+    <script src="js/profile.js?v=20260504"></script>
+</body>
+
+</html>

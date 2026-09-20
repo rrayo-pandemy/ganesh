@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta name="description" content="Ganesh - ecommerce moderno, seguro y optimizado para 2026-2027.">
+    <meta name="keywords" content="ecommerce, tienda online, Ganesh, premium">
+    <meta name="theme-color" content="#0b3c5d">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Ganesh - Ecommerce Premium">
+    <meta property="og:description" content="Tienda online premium con arquitectura segura y diseño moderno.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_PE">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ganesh - Ecommerce Premium">
+    <meta name="twitter:description" content="Tienda online premium con arquitectura segura y diseño moderno.">
+    <script>
+        (function () {
+            try {
+                var savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+            } catch (e) { }
+        })();
+    </script>
+    <script>
+        // Configuración de API dinámica para LAN/WAN
+        (function () {
+            function normalizeApiBase(value) {
+                if (!value) return '';
+                try {
+                    var parsed = new URL(value.trim());
+                    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') return '';
+                    return parsed.origin;
+                } catch (e) {
+                    return '';
+                }
+            }
+
+            var urlParams = new URLSearchParams(window.location.search);
+            var apiOverride = normalizeApiBase(urlParams.get('api'));
+            if (!apiOverride && /^\?https?:\/\//i.test(window.location.search)) {
+                apiOverride = normalizeApiBase(window.location.search.slice(1));
+            }
+            if (apiOverride) {
+                localStorage.setItem('wan_api_base', apiOverride);
+                console.log('API Base sobrescrita por URL:', apiOverride);
+            }
+
+            var savedWanApi = normalizeApiBase(localStorage.getItem('wan_api_base'));
+            window.API_BASE = savedWanApi || window.location.origin;
+
+            if (!savedWanApi && window.location.port === '8000') {
+                window.API_BASE = window.location.protocol + '//' + window.location.hostname + ':5000';
+            }
+
+            console.log('API_BASE actual:', window.API_BASE);
+        })();
+    </script>
+    <title>Ganesh - Ecommerce Premium</title>
+    <link rel="stylesheet" href="css/styles.css?v=2.1">
+    <link rel="stylesheet" href="css/accessibility.css">
+
+</head>
+
+<body>
+    <header class="header" role="banner">
+        <div class="header__container">
+            <a href="#inicio" class="header__logo" aria-label="Ir al inicio">
+                <svg class="logo-icon" viewBox="0 0 32 32" width="32" height="32" aria-hidden="true">
+                    <circle cx="16" cy="16" r="14" fill="url(#gradient)" opacity="0.9" />
+                    <path d="M16 6 L22 14 L22 26 L10 26 L10 14 Z" fill="none" stroke="currentColor"
+                        stroke-width="1.5" />
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0099cc;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span class="logo-text">Ganesh</span>
+            </a>
+
+            <nav class="nav" role="navigation" aria-label="Menu principal">
+                <ul class="nav__list">
+                    <li><a href="#inicio" class="nav__link">Inicio</a></li>
+                    <li><a href="#promociones" class="nav__link">Promociones</a></li>
+                    <li><a href="index.html#premium-membership" class="nav__link">Premium</a></li>
+                    <li class="nav-mobile-only" data-auth-panel hidden><a href="profile.html" class="nav__link">Mi
+                            Perfil</a></li>
+                    <li class="nav-mobile-only" data-auth-panel hidden><a href="#" class="nav__link"
+                            data-auth-logout>Cerrar Sesión</a></li>
+                    <li class="nav__item nav__item--dropdown">
+                        <a href="#productos" class="nav__link" aria-haspopup="true" aria-expanded="false">Productos</a>
+                        <ul class="nav__dropdown" aria-label="Categorias de productos">
+                            <li><a href="#productos" class="nav__dropdown-link" data-filter="all">Todos</a></li>
+                            <li><a href="#productos" class="nav__dropdown-link" data-filter="skincare">Skincare</a></li>
+                            <li><a href="#productos" class="nav__dropdown-link" data-filter="wellness">Wellness</a></li>
+                            <li><a href="#productos" class="nav__dropdown-link" data-filter="home">Home</a></li>
+                            <li><a href="#productos" class="nav__dropdown-link" data-filter="lifestyle">Lifestyle</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#como-comprar" class="nav__link">Como Comprar</a></li>
+                    <li><a href="#about" class="nav__link">Sobre Nosotros</a></li>
+                </ul>
+            </nav>
+
+            <div class="header__actions">
+                <button class="theme-toggle" aria-label="Activar modo oscuro" aria-pressed="false" data-theme-glyph="☾">
+                    <svg class="theme-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 0111.21 3c0 .34.02.67.05 1A7 7 0 1019 19.74c.33.03.66.05 1 .05z"
+                            fill="currentColor" />
+                    </svg>
+                </button>
+                <a class="btn btn--secondary btn--header-cta premium-login" data-auth-login
+                    href="#premium-membership">Iniciar Sesion</a>
+                <a class="btn btn--premium btn--header-cta" data-premium-upgrade href="#premium-membership"
+                    hidden>Hacerme Premium</a>
+
+                <button class="cart-toggle" aria-label="Abrir carrito de compras" aria-expanded="false">
+                    🛒
+                    <svg class="cart-icon" viewBox="0 0 24 24" width="24" height="24">
+                    </svg>
+                    <span class="cart-badge">0</span>
+                </button>
+
+                <div class="header-account" data-auth-panel hidden>
+                    <div class="header-account__meta">
+                        <span class="header-account__name" data-auth-name>Cliente</span>
+                        <span class="header-account__cart" data-auth-cart>Carrito: 0 productos</span>
+                    </div>
+                    <a href="profile.html" class="btn btn--secondary btn--header-cta header-profile-link">Mi Perfil</a>
+                </div>
+                <button class="header-account__logout" data-auth-logout data-auth-panel type="button" hidden>Cerrar
+                    sesion</button>
+            </div>
+
+            <button class="menu-toggle" aria-label="Menu movil" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <aside class="cart-sidebar" role="complementary" aria-label="Carrito de compras">
+        <div class="cart-header">
+            <h2>Mi Carrito</h2>
+            <button class="cart-close" aria-label="Cerrar carrito">&times;</button>
+        </div>
+        <div class="cart-items"></div>
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Subtotal:</span>
+                <span class="subtotal">S/ 0.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Envio:</span>
+                <span class="shipping">S/ 0.00</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total:</span>
+                <span class="total-price">S/ 0.00</span>
+            </div>
+            <button class="btn btn--primary btn--block" data-action="checkout">Proceder al Pago</button>
+            <button class="btn btn--secondary btn--block" data-action="continue-shopping">Seguir Comprando
+            </button>
+        </div>
+    </aside>
+
+    <div class="cart-overlay" aria-hidden="true"></div>
+
+    <div id="premium-login-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+        <div class="modal__overlay"></div>
+        <div class="modal__panel" role="document">
+            <button class="modal__close" aria-label="Cerrar dialogo"><span class="close-icon">&times;</span></button>
+            <h2 id="modal-title" class="modal__title">Acceso</h2>
+            <p class="modal__subtitle">Inicia sesión para habilitar el carrito de compras y el catálogo.</p>
+            <form id="premium-login-form" class="modal__form">
+                <div class="form-group">
+                    <label for="premium-email">Correo Electrónico</label>
+                    <input type="email" id="premium-email" name="email" placeholder="correo electronico" required>
+                </div>
+                <div class="form-group">
+                    <label for="premium-password">Contraseña</label>
+                    <input type="password" id="premium-password" name="password" placeholder="********" required>
+                </div>
+                <div class="modal__message" role="status" aria-live="polite"></div>
+                <button type="submit" class="btn btn--primary btn--block">Iniciar Sesión</button>
+            </form>
+            <p class="modal__footer-text">
+                No tienes cuenta?
+                <a href="#" class="open-signup">Registrarse</a>
+            </p>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="signup-modal-title">
+        <div class="modal__overlay"></div>
+        <div class="modal__panel" role="document">
+            <button class="modal__back" aria-label="Volver al acceso">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" fill="none" stroke="currentColor"
+                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+            <button class="modal__close" aria-label="Cerrar dialogo"><span class="close-icon">&times;</span></button>
+            <h2 id="signup-modal-title" class="modal__title">Crear cuenta</h2>
+            <p class="modal__subtitle">Regístrate para guardar pedidos. Tu contraseña debe tener al menos 9 caracteres, una mayúscula, un número y un carácter especial.</p>
+            <form id="signup-form" class="modal__form">
+                <div class="form-group">
+                    <label for="signup-name">Nombre</label>
+                    <input type="text" id="signup-name" name="name" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-last-name">Apellidos</label>
+                    <input type="text" id="signup-last-name" name="last_name" placeholder="Tus apellidos" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-phone">Telefono</label>
+                    <input type="tel" id="signup-phone" name="phone" placeholder="Tu telefono" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-address">Direccion</label>
+                    <input type="text" id="signup-address" name="address" placeholder="Tu direccion" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Correo Electronico</label>
+                    <input type="email" id="signup-email" name="email" placeholder="correo@dominio.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Contrasena</label>
+                    <input type="password" id="signup-password" name="password" placeholder="Min. 9 chars: Aa1@..."
+                        required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-confirm-password">Confirmar contrasena</label>
+                    <input type="password" id="signup-confirm-password" name="confirmPassword"
+                        placeholder="Repite tu contrasena" required>
+                </div>
+                <div class="modal__message" role="status" aria-live="polite"></div>
+                <button type="submit" class="btn btn--primary btn--block">Crear cuenta</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="premium-upgrade-modal" class="modal modal--premium" aria-hidden="true" role="dialog"
+        aria-labelledby="premium-upgrade-title">
+        <div class="modal__overlay"></div>
+        <div class="modal__panel modal__panel--premium" role="document">
+            <button class="modal__close" aria-label="Cerrar dialogo">&times;</button>
+            <h2 id="premium-upgrade-title" class="modal__title">Producto exclusivo Premium</h2>
+            <p class="premium-modal-description">Este item es solo para miembros Premium.</p>
+            <div class="premium-cta">
+                <button class="btn btn--premium btn--lg premium-login" data-action="upgrade-premium"
+                    data-premium-cta="modal">Activar Membresia</button>
+                <button class="btn btn--secondary" data-modal-close>Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <main role="main">
+        <section class="hero" id="inicio">
+            <div class="hero__bg"></div>
+            <div class="hero__content">
+                <div class="hero__text fade-in-up">
+                    <h1 class="hero__title">Ecommerce Premium para 2026-2027</h1>
+                    <p class="hero__subtitle">Compra segura, diseño limpio y experiencia de alto rendimiento en desktop
+                        y movil.</p>
+                    <button class="btn btn--primary btn--lg" data-action="scroll-products">Ver productos <span
+                            class="btn__arrow">→</span></button>
+                </div>
+                <div class="hero__visual fade-in-right" style="animation-delay: 0.2s">
+                    <div class="hero__shape hero__shape--1" data-parallax="0.08"></div>
+                    <div class="hero__shape hero__shape--2" data-parallax="0.12"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="promotions" id="promociones">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <h2>Promociones Activas</h2>
+                    <p>Campañas vigentes para conversión y retención.</p>
+                </div>
+                <div class="promo-grid">
+                    <article class="promo-card scroll-reveal">
+                        <h3>20% para Premium</h3>
+                        <p>Descuento mensual para miembros y acceso anticipado a lanzamientos.</p>
+                    </article>
+                    <article class="promo-card scroll-reveal" style="--reveal-delay: 0.1s">
+                        <h3>Envio sin costo</h3>
+                        <p>En pedidos desde S/ 200 con estado de orden en tiempo real.</p>
+                    </article>
+                    <article class="promo-card scroll-reveal" style="--reveal-delay: 0.2s">
+                        <h3>Pack de bienvenida</h3>
+                        <p>Primer pedido con obsequio y prioridad en soporte comercial.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="premium-membership" id="premium-membership">
+            <div class="container">
+                <div class="premium-membership-wrapper">
+                    <div class="premium-membership-content fade-in">
+                        <div class="premium-badge">PREMIUM</div>
+                        <h2>Beneficios exclusivos para clientes frecuentes</h2>
+                        <p class="premium-membership-subtitle">Acceso a productos premium, descuentos, envio prioritario
+                            y soporte preferente.</p>
+                        <div class="premium-points" aria-label="Beneficios premium">
+                            <span>Descuento 20%</span>
+                            <span>Soporte prioritario</span>
+                            <span>Acceso anticipado</span>
+                        </div>
+                        <button class="btn btn--premium btn--lg premium-membership-btn premium-login"
+                            data-premium-cta="section" aria-haspopup="dialog"
+                            aria-controls="premium-login-modal">Acceder como Premium</button>
+                    </div>
+                    <div class="premium-membership-visual fade-in-right" style="animation-delay: 0.2s">
+                        <div class="premium-visual-shape premium-visual-shape--1"></div>
+                        <div class="premium-visual-shape premium-visual-shape--2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="products" id="productos">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <h2>Catalogo de Productos</h2>
+                    <p>Coleccion moderna con categorias para skincare, hogar y lifestyle.</p>
+                </div>
+
+                <div class="filter-toolbar scroll-reveal" aria-label="Filtros de categoria">
+                    <button class="filter-btn active" data-filter="all" aria-pressed="true">Todos</button>
+                    <button class="filter-btn" data-filter="skincare" aria-pressed="false">Skincare</button>
+                    <button class="filter-btn" data-filter="wellness" aria-pressed="false">Wellness</button>
+                    <button class="filter-btn" data-filter="home" aria-pressed="false">Home</button>
+                    <button class="filter-btn" data-filter="lifestyle" aria-pressed="false">Lifestyle</button>
+                </div>
+
+                <div class="products-grid" id="products-container"></div>
+            </div>
+        </section>
+
+        <section class="how-to-buy" id="como-comprar">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <h2>Como Comprar</h2>
+                    <p>Flujo optimizado para conversion en cuatro pasos.</p>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step scroll-reveal" style="--reveal-delay: 0s">
+                        <div class="step__number">01</div>
+                        <h3>Explora</h3>
+                        <p>Filtra por categoria y revisa detalle de cada producto.</p>
+                    </div>
+                    <div class="step scroll-reveal" style="--reveal-delay: 0.1s">
+                        <div class="step__number">02</div>
+                        <h3>Agrega al carrito</h3>
+                        <p>Selecciona cantidades y valida total antes de pagar.</p>
+                    </div>
+                    <div class="step scroll-reveal" style="--reveal-delay: 0.2s">
+                        <div class="step__number">03</div>
+                        <h3>Checkout</h3>
+                        <p>Proceso seguro con validaciones y confirmacion inmediata.</p>
+                    </div>
+                    <div class="step scroll-reveal" style="--reveal-delay: 0.3s">
+                        <div class="step__number">04</div>
+                        <h3>Seguimiento</h3>
+                        <p>Trazabilidad del pedido y canal de soporte disponible.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact" id="contacto">
+            <div class="container">
+                <div class="section-header scroll-reveal">
+                    <h2>Contacto</h2>
+                    <p>Canales directos para ventas, soporte y seguimiento.</p>
+                </div>
+
+                <div class="contact-grid">
+                    <a href="https://wa.me/51949986820" target="_blank" rel="noopener noreferrer"
+                        class="contact-btn scroll-reveal" aria-label="Contactar por WhatsApp">
+                        <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true">
+                            <path fill="currentColor"
+                                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
+                        </svg>
+                        <div class="contact-info">
+                            <h3>WhatsApp</h3>
+                            <p>+51 949 986 820</p>
+                        </div>
+                    </a>
+                    <a href="mailto:soporte@elrinconazul.com" class="contact-btn scroll-reveal"
+                        style="--reveal-delay: 0.1s" aria-label="Enviar email">
+                        <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true">
+                            <path fill="none" stroke="currentColor" stroke-width="1.5"
+                                d="M3 8l9 6 9-6M3 8v10a2 2 0 002 2h14a2 2 0 002-2V8M3 8l9 6m9-6l-9 6" />
+                        </svg>
+                        <div class="contact-info">
+                            <h3>Email</h3>
+                            <p>soporte@elrinconazul.com</p>
+                        </div>
+                    </a>
+                    <a href="tel:+51949896820" class="contact-btn scroll-reveal" style="--reveal-delay: 0.2s"
+                        aria-label="Llamar por telefono">
+                        <svg viewBox="0 0 24 24" width="32" height="32" aria-hidden="true">
+                            <path fill="none" stroke="currentColor" stroke-width="1.5"
+                                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
+                        </svg>
+                        <div class="contact-info">
+                            <h3>Telefono</h3>
+                            <p>+51 949 986 820</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="about">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-text scroll-reveal">
+                        <h2>Sobre Ganesh</h2>
+                        <p>Combinamos diseño UX/UI, arquitectura segura y procesos de calidad para crear un ecommerce
+                            utilizable en escenarios reales.</p>
+                        <h3>Valores de operacion</h3>
+                        <ul class="values-list">
+                            <li><strong>Confianza:</strong> seguridad por defecto y politicas claras.</li>
+                            <li><strong>Eficiencia:</strong> flujo de compra corto y medible.</li>
+                            <li><strong>Escalabilidad:</strong> backend modular con endpoints REST.</li>
+                            <li><strong>Mejora continua:</strong> trazabilidad y metricas para decisiones.</li>
+                        </ul>
+                    </div>
+                    <div class="about-visual scroll-reveal" style="--reveal-delay: 0.2s">
+                        <div class="about-bg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <section class="trust-section">
+        <div class="digital-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="trust-container">
+            <div class="trust-item scroll-reveal">
+                <div class="trust-icon">🔒</div>
+                <h3>Compra Segura</h3>
+                <p>Proteccion activa con cabeceras de seguridad y controles anti abuso.</p>
+            </div>
+            <div class="trust-item scroll-reveal" style="--reveal-delay: 0.1s">
+                <div class="trust-icon">✓</div>
+                <h3>ISO 9001</h3>
+                <p>Procesos definidos para pedido, pago, confirmacion y trazabilidad.</p>
+            </div>
+            <div class="trust-item scroll-reveal" style="--reveal-delay: 0.2s">
+                <div class="trust-icon">⚡</div>
+                <h3>Operacion Rapida</h3>
+                <p>API REST optimizada y flujo de compra en pocos pasos.</p>
+            </div>
+        </div>
+    </section>
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Ganesh</h3>
+                <p>Tienda online premium con arquitectura lista para crecer.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Enlaces Rapidos</h4>
+                <ul>
+                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#promociones">Promociones</a></li>
+                    <li><a href="#como-comprar">Como Comprar</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Politicas</h4>
+                <ul>
+                    <li><a href="#">Privacidad</a></li>
+                    <li><a href="#">Terminos</a></li>
+                    <li><a href="#">Devoluciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-section footer-certifications">
+                <h4>Confianza</h4>
+                <div class="certifications">
+                    <div class="cert-badge"><span class="cert-icon">🏅</span>
+                        <p>ISO 9001</p>
+                    </div>
+                    <div class="cert-badge"><span class="cert-icon">🔒</span>
+                        <p>HTTPS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Ganesh. Plataforma ecommerce segura y escalable.</p>
+        </div>
+    </footer>
+
+    <script src="js/api-config.js" defer></script>
+    <script src="js/theme-manager.js" defer></script>
+    <script src="js/session.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/animations.js" defer></script>
+    <script src="js/cart.js" defer></script>
+</body>
+
+</html>
